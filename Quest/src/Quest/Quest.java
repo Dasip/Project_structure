@@ -3,44 +3,39 @@ package Quest;
 public class Quest implements Questable {
 	private String quest;
 	private String[] varies;
-	private String reply;
-	private int correct;
-	private boolean active;
+	private Quest[] replies;
+	private Quest next;
 	
-	Quest(String q, String[] a, String r, int c){
+	Quest(String q, String[] a, String[] r, Quest[] qr){
 		this.quest = q;
 		this.varies = a;
-		this.reply = r;
-		this.correct = c;
-		this.active = true;
-		
+		this.replies = qr;
+	}
+	
+	Quest(String q, String[] a){
+		this.quest = q;
+		this.varies = a;
 	}
 	
 	public String getQuest(){
-		if (this.active) return this.quest;
-		else return "";
+		return this.quest;
+	}
+	
+	public void setReplies(Quest[] q) {
+		this.replies = q;
 	}
 	
 	public String[] getVaries(){
-		if (this.active) return this.varies;
-		else{
-			String[] a = new String[0];
-			return a;
-		}
+		return this.varies;
 	}
 	
-	public String getReply(int a){
-		if (a == this.correct+1){
-			this.active = false;
-			return this.reply;}
-		else{
-			return "Вы не сделали ничего полезного";
-		}
+	public Quest getReply(int a){
+		return this.replies[a-1];
 		
 	}
 	
-	private boolean getActive(){
-		return this.active;
+	public int getVariesLen() {
+		return varies.length;
 	}
 
 }
